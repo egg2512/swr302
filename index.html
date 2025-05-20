@@ -175,6 +175,315 @@
             margin-bottom: 1rem;
         }
 
+        /* Medical Facilities Section */
+        .medical-facilities {
+            padding: 5rem 1rem;
+            background-color: #f8f9fa;
+        }
+
+        .medical-facilities h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .facilities-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .facility-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .facility-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .facility-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .facility-content {
+            padding: 1.5rem;
+        }
+
+        .facility-content h3 {
+            color: #ff4d4d;
+            margin-bottom: 0.5rem;
+        }
+
+        .facility-content p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .facility-details {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Blood Types Section */
+        .blood-types {
+            padding: 5rem 1rem;
+            background-color: white;
+            position: relative;
+        }
+
+        .blood-types h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .blood-types-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 40px;
+            overflow: hidden; /* Hide overflow to prevent horizontal scrollbar */
+        }
+
+        .blood-types-grid {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 1rem 0;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            scroll-snap-type: x mandatory;
+            width: 100%;
+        }
+
+        .blood-types-grid::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .blood-type-card {
+            background: #fff5f5;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 2px solid #ff4d4d;
+            transition: transform 0.3s ease;
+            flex: 0 0 calc((100% - 4rem) / 3); /* Exactly 3 cards with 2rem gap between them */
+            scroll-snap-align: start;
+            height: 400px; /* Fixed height for consistency */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .scroll-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ff4d4d;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            transition: background-color 0.3s ease;
+        }
+
+        .scroll-button:hover {
+            background: #ff3333;
+        }
+
+        .scroll-button.left {
+            left: 0;
+        }
+
+        .scroll-button.right {
+            right: 0;
+        }
+
+        .scroll-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .blood-type-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blood-type-card.negative {
+            background: #fff0f0;
+            border-color: #ff6b6b;
+        }
+
+        .blood-type-card h3 {
+            color: #ff4d4d;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .blood-type-card.negative h3 {
+            color: #ff6b6b;
+        }
+
+        .blood-type-card p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .compatibility-list {
+            text-align: left;
+            margin-top: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .compatibility-list h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .compatibility-list li {
+            color: #666;
+            margin-bottom: 0.5rem;
+            list-style-type: none;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .blood-info-box {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6ffed 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem auto;
+            border: 2px solid #38a169;
+            box-shadow: 0 4px 20px rgba(56, 161, 105, 0.1);
+            position: relative;
+            overflow: hidden;
+            max-width: 800px;
+        }
+
+        .blood-info-box::before {
+            content: "ℹ️";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.2;
+        }
+
+        .blood-info-box h3 {
+            color: #2f855a;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .blood-info-box h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #38a169;
+            border-radius: 2px;
+        }
+
+        .blood-info-box ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .blood-info-box li {
+            color: #2d3748;
+            margin-bottom: 0;
+            padding: 0.8rem 1.2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(56, 161, 105, 0.05);
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .blood-info-box li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(56, 161, 105, 0.1);
+        }
+
+        .blood-info-box li::before {
+            content: "✓";
+            color: #38a169;
+            font-weight: bold;
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+            min-width: 20px;
+            height: 20px;
+            background: #f0fff4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blood-info-box .highlight {
+            background: #fff;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            border-left: 4px solid #38a169;
+            grid-column: 1 / -1;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .blood-info-box .highlight p {
+            color: #2f855a;
+            font-weight: 700;
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
         /* Emergency Section */
         .emergency {
             background-color: #fff5f5;
@@ -248,6 +557,15 @@
             .hero p {
                 font-size: 1rem;
             }
+
+            .blood-info-box ul {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+            }
+            
+            .blood-info-box {
+                margin: 3rem 1rem;
+            }
         }
     </style>
 </head>
@@ -297,6 +615,268 @@
             </div>
         </div>
     </section>
+
+    <!-- Medical Facilities Section -->
+    <section class="medical-facilities">
+        <h2>Our Partner Medical Facilities</h2>
+        <div class="facilities-container">
+            <article class="facility-card">
+                <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="City General Hospital - Modern hospital building with glass facade" 
+                     class="facility-image"
+                     loading="lazy">
+                <div class="facility-content">
+                    <h3>City General Hospital</h3>
+                    <p>A leading medical center with state-of-the-art facilities and a dedicated blood bank. Our 24/7 emergency services ensure immediate response to blood donation needs.</p>
+                    <div class="facility-details">
+                        <span>📍 Downtown Medical District</span>
+                        <span>🕒 24/7 Service</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="facility-card">
+                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Community Health Center - Modern medical facility with clean interior" 
+                     class="facility-image"
+                     loading="lazy">
+                <div class="facility-content">
+                    <h3>Community Health Center</h3>
+                    <p>Specializing in community healthcare with a focus on blood donation services. Regular blood drives and mobile donation units serve neighborhoods across the city.</p>
+                    <div class="facility-details">
+                        <span>📍 Westside Community</span>
+                        <span>🕒 Mon-Sat: 8AM-8PM</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="facility-card">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="Metropolitan Medical Center - Modern hospital with advanced medical technology" 
+                     class="facility-image"
+                     loading="lazy">
+                <div class="facility-content">
+                    <h3>Metropolitan Medical Center</h3>
+                    <p>Advanced medical facility with specialized blood transfusion services. Features a modern blood bank and research center for blood-related studies.</p>
+                    <div class="facility-details">
+                        <span>📍 Eastside Medical Complex</span>
+                        <span>🕒 24/7 Service</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Blood Types Section -->
+    <section class="blood-types">
+        <h2>Understanding Blood Types</h2>
+        <div class="blood-types-container">
+            <button class="scroll-button left" onclick="scrollBloodTypes('left')">←</button>
+            <div class="blood-types-grid">
+                <!-- Positive Blood Types -->
+                <div class="blood-type-card">
+                    <h3>A+</h3>
+                    <p>Can donate to: A+ and AB+</p>
+                    <p>Can receive from: A+, A-, O+, O-</p>
+                    <div class="compatibility-list">
+                        <h4>Key Facts:</h4>
+                        <li>Second most common blood type</li>
+                        <li>Universal platelet donor</li>
+                        <li>High demand for plasma</li>
+                    </div>
+                </div>
+
+                <div class="blood-type-card">
+                    <h3>B+</h3>
+                    <p>Can donate to: B+ and AB+</p>
+                    <p>Can receive from: B+, B-, O+, O-</p>
+                    <div class="compatibility-list">
+                        <h4>Key Facts:</h4>
+                        <li>Third most common blood type</li>
+                        <li>Important for B+ and AB+ patients</li>
+                        <li>Plasma can help A and AB patients</li>
+                    </div>
+                </div>
+
+                <div class="blood-type-card">
+                    <h3>AB+</h3>
+                    <p>Can donate to: AB+ only</p>
+                    <p>Can receive from: All blood types</p>
+                    <div class="compatibility-list">
+                        <h4>Key Facts:</h4>
+                        <li>Universal recipient</li>
+                        <li>Rarest blood type</li>
+                        <li>Universal plasma donor</li>
+                    </div>
+                </div>
+
+                <div class="blood-type-card">
+                    <h3>O+</h3>
+                    <p>Can donate to: All positive types</p>
+                    <p>Can receive from: O+ and O-</p>
+                    <div class="compatibility-list">
+                        <h4>Key Facts:</h4>
+                        <li>Most common blood type</li>
+                        <li>High demand for transfusions</li>
+                        <li>Universal red cell donor to positive types</li>
+                    </div>
+                </div>
+
+                <!-- Negative Blood Types -->
+                <div class="blood-type-card negative">
+                    <h3>A-</h3>
+                    <p>Can donate to: A+, A-, AB+, AB-</p>
+                    <p>Can receive from: A- and O-</p>
+                    <div class="compatibility-list">
+                        <h4>Key Facts:</h4>
+                        <li>Rare blood type</li>
+                        <li>Important for A- and AB- patients</li>
+                        <li>High demand for transfusions</li>
+                    </div>
+                </div>
+
+                <div class="blood-type-card negative">
+                    <h3>B-</h3>
+                    <p>Can donate to: B+, B-, AB+, AB-</p>
+                    <p>Can receive from: B- and O-</p>
+                    <div class="compatibility-list">
+                        <h4>Key Facts:</h4>
+                        <li>Very rare blood type</li>
+                        <li>Critical for B- and AB- patients</li>
+                        <li>Plasma can help B and AB patients</li>
+                    </div>
+                </div>
+
+                <div class="blood-type-card negative">
+                    <h3>AB-</h3>
+                    <p>Can donate to: AB+ and AB-</p>
+                    <p>Can receive from: All negative types</p>
+                    <div class="compatibility-list">
+                        <h4>Key Facts:</h4>
+                        <li>Rarest blood type</li>
+                        <li>Universal plasma donor</li>
+                        <li>Can receive from all negative types</li>
+                    </div>
+                </div>
+
+                <div class="blood-type-card negative">
+                    <h3>O-</h3>
+                    <p>Can donate to: All blood types</p>
+                    <p>Can receive from: O- only</p>
+                    <div class="compatibility-list">
+                        <h4>Key Facts:</h4>
+                        <li>Universal donor</li>
+                        <li>Most needed blood type</li>
+                        <li>Critical for emergency transfusions</li>
+                    </div>
+                </div>
+            </div>
+            <button class="scroll-button right" onclick="scrollBloodTypes('right')">→</button>
+        </div>
+
+        <div class="blood-info-box">
+            <h3>Important Blood Donation Guidelines</h3>
+            <ul>
+                <li>You must be at least 17 years old and weigh at least 110 pounds</li>
+                <li>Wait at least 56 days between whole blood donations</li>
+                <li>Bring a valid photo ID when donating</li>
+                <li>Eat a healthy meal and stay hydrated before donating</li>
+                <li>Get plenty of rest the night before donation</li>
+                <li>Avoid strenuous exercise for 24 hours after donation</li>
+                <li>Inform staff of any medications you are taking</li>
+                <li>Wear comfortable clothing with sleeves that can be rolled up</li>
+                <div class="highlight">
+                    <p>⚠️ Special Note: Negative blood types (especially O-) are critically needed for emergency situations. Your donation could save multiple lives!</p>
+                </div>
+            </ul>
+        </div>
+    </section>
+
+    <script>
+        let autoScrollInterval;
+        const SCROLL_INTERVAL = 3000; // 3 seconds between scrolls
+        const SCROLL_AMOUNT = document.querySelector('.blood-type-card').offsetWidth + 32; // Card width + gap
+
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(() => {
+                const container = document.querySelector('.blood-types-grid');
+                const maxScroll = container.scrollWidth - container.clientWidth;
+                
+                if (container.scrollLeft >= maxScroll) {
+                    // If we've reached the end, scroll back to start
+                    container.scrollTo({
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Otherwise, scroll by exactly one card width
+                    container.scrollBy({
+                        left: SCROLL_AMOUNT,
+                        behavior: 'smooth'
+                    });
+                }
+                updateScrollButtons();
+            }, SCROLL_INTERVAL);
+        }
+
+        function stopAutoScroll() {
+            clearInterval(autoScrollInterval);
+        }
+
+        function scrollBloodTypes(direction) {
+            const container = document.querySelector('.blood-types-grid');
+            
+            if (direction === 'left') {
+                container.scrollBy({
+                    left: -SCROLL_AMOUNT,
+                    behavior: 'smooth'
+                });
+            } else {
+                container.scrollBy({
+                    left: SCROLL_AMOUNT,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Reset auto-scroll timer when manually scrolling
+            stopAutoScroll();
+            startAutoScroll();
+            updateScrollButtons();
+        }
+
+        function updateScrollButtons() {
+            const container = document.querySelector('.blood-types-grid');
+            const leftButton = document.querySelector('.scroll-button.left');
+            const rightButton = document.querySelector('.scroll-button.right');
+
+            leftButton.disabled = container.scrollLeft <= 0;
+            rightButton.disabled = container.scrollLeft >= container.scrollWidth - container.clientWidth;
+        }
+
+        // Initialize auto-scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            startAutoScroll();
+            
+            // Pause auto-scroll on hover
+            const container = document.querySelector('.blood-types-container');
+            container.addEventListener('mouseenter', stopAutoScroll);
+            container.addEventListener('mouseleave', startAutoScroll);
+
+            // Update button states on scroll
+            document.querySelector('.blood-types-grid').addEventListener('scroll', updateScrollButtons);
+            
+            // Initial button state update
+            updateScrollButtons();
+        });
+
+        // Clean up interval when leaving the page
+        window.addEventListener('beforeunload', stopAutoScroll);
+
+        // Update scroll amount on window resize
+        window.addEventListener('resize', () => {
+            const SCROLL_AMOUNT = document.querySelector('.blood-type-card').offsetWidth + 32;
+        });
+    </script>
 
     <section class="emergency" id="donate">
         <h2>Emergency Blood Request</h2>
