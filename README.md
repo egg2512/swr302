@@ -21,12 +21,12 @@ A web-based blood donation support system that helps connect blood donors with t
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/blood-donation-system.git
+git clone https://github.com/egg2512/swr302.git
 ```
 
 2. Open the project folder:
 ```bash
-cd blood-donation-system
+cd swr302
 ```
 
 3. Open `index.html` in your web browser to view the application.
@@ -34,7 +34,7 @@ cd blood-donation-system
 ## Project Structure
 
 ```
-blood-donation-system/
+swr302/
 ├── index.html          # Home page
 ├── login.html          # Login page
 ├── register.html       # Registration page
@@ -56,6 +56,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 
-Your Name - your.email@example.com
-
-Project Link: [https://github.com/your-username/blood-donation-system](https://github.com/your-username/blood-donation-system) 
+Project Link: [https://github.com/egg2512/swr302](https://github.com/egg2512/swr302)
