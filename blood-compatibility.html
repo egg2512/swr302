@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Type Compatibility - BloodLife</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Compatibility Page Styles */
+        .compatibility-container {
+            max-width: 1200px;
+            margin: 100px auto 40px;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Compatibility Table */
+        .compatibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .compatibility-table th,
+        .compatibility-table td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        .compatibility-table th {
+            background-color: #ff4d4d;
+            color: white;
+            font-weight: 600;
+        }
+
+        .compatibility-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
+
+        .compatible {
+            color: #38a169;
+            font-weight: 600;
+        }
+
+        .incompatible {
+            color: #e53e3e;
+            font-weight: 600;
+        }
+
+        /* Blood Type Selector */
+        .blood-type-selector {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .selector-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .selector-header h2 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blood-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .blood-type-option {
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .blood-type-option:hover {
+            border-color: #ff4d4d;
+            transform: translateY(-2px);
+        }
+
+        .blood-type-option.selected {
+            background-color: #ff4d4d;
+            color: white;
+            border-color: #ff4d4d;
+        }
+
+        .blood-type-option.negative {
+            border-color: #ff6b6b;
+        }
+
+        /* Component Selector Styles */
+        .component-selector {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .component-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .component-header h2 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .component-option {
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+            background: #fff;
+        }
+
+        .component-option:hover {
+            border-color: #ff4d4d;
+            transform: translateY(-2px);
+        }
+
+        .component-option.selected {
+            background-color: #ff4d4d;
+            color: white;
+            border-color: #ff4d4d;
+        }
+
+        .component-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+            text-align: left;
+        }
+
+        /* Compatibility Results */
+        .compatibility-results {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .results-header h2 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .results-header .selected-info {
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .results-header .selected-info span {
+            color: #ff4d4d;
+            font-weight: 600;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .result-card {
+            background: #fff5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #ff4d4d;
+            margin-bottom: 1rem;
+        }
+
+        .result-card h3 {
+            color: #ff4d4d;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .result-card .component-type {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .result-card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .result-card li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .result-card li::before {
+            content: "•";
+            color: #ff4d4d;
+            position: absolute;
+            left: 0;
+        }
+
+        .result-card .blood-type {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .result-card .compatibility-note {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6ffed 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem auto;
+            border: 2px solid #38a169;
+            box-shadow: 0 4px 20px rgba(56, 161, 105, 0.1);
+            max-width: 800px;
+        }
+
+        .info-box h3 {
+            color: #2f855a;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .info-box ul {
+            list-style: none;
+        }
+
+        .info-box li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .info-box li::before {
+            content: "✓";
+            color: #38a169;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            padding: 2rem;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-nav.active {
+            transform: translateX(0);
+        }
+
+        .mobile-nav .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .mobile-nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: block;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .compatibility-container {
+                padding: 1rem;
+                margin-top: 80px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .compatibility-table {
+                font-size: 0.9rem;
+            }
+
+            .compatibility-table th,
+            .compatibility-table td {
+                padding: 0.5rem;
+            }
+
+            .blood-type-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .compatibility-form {
+                padding: 1.5rem;
+            }
+
+            .form-group select {
+                font-size: 0.9rem;
+                padding: 0.7rem;
+            }
+
+            .submit-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Form Styles */
+        .compatibility-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-group select:hover {
+            border-color: #ff4d4d;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff4d4d;
+            box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.1);
+        }
+
+        .form-group .select-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .submit-button {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-button:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 77, 77, 0.2);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .submit-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">BloodLife</div>
+            <button class="mobile-menu-button" id="mobileMenuButton">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="donate.html">Donate</a>
+                <a href="blood-compatibility.html">Compatibility</a>
+                <a href="blood-search.html">Find Blood</a>
+                <a href="emergency-request.html">Emergency</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="close-button" id="closeMobileMenu">×</button>
+        <div class="mobile-nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="donate.html">Donate</a>
+            <a href="blood-compatibility.html">Compatibility</a>
+            <a href="blood-search.html">Find Blood</a>
+            <a href="emergency-request.html">Emergency</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </div>
+
+    <div class="compatibility-container">
+        <div class="page-header">
+            <h1>Blood Type Compatibility</h1>
+            <p>Understanding blood type compatibility is crucial for safe blood transfusions. Fill out the form below to check compatibility for different blood components.</p>
+        </div>
+
+        <form class="compatibility-form" id="compatibilityForm">
+            <div class="form-group">
+                <label for="bloodComponent">Select Blood Component</label>
+                <select id="bloodComponent" name="bloodComponent" required>
+                    <option value="">Choose a blood component...</option>
+                    <option value="whole-blood">Whole Blood</option>
+                    <option value="red-cells">Red Blood Cells</option>
+                    <option value="plasma">Plasma</option>
+                    <option value="platelets">Platelets</option>
+                </select>
+                <div class="select-description" id="componentDescription"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="bloodType">Select Blood Type</label>
+                <select id="bloodType" name="bloodType" required>
+                    <option value="">Choose your blood type...</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-button">Check Compatibility</button>
+        </form>
+
+        <div class="compatibility-results" id="compatibilityResults">
+            <div class="results-header">
+                <h2>Compatibility Results</h2>
+                <div class="selected-info">
+                    Showing compatibility for <span id="selectedComponent"></span> with blood type <span id="selectedBloodType"></span>
+                </div>
+            </div>
+            <div class="results-grid">
+                <div class="result-card">
+                    <h3>Can Donate To</h3>
+                    <ul id="canDonateTo"></ul>
+                </div>
+                <div class="result-card">
+                    <h3>Can Receive From</h3>
+                    <ul id="canReceiveFrom"></ul>
+                </div>
+            </div>
+        </div>
+
+        <table class="compatibility-table">
+            <thead>
+                <tr>
+                    <th>Blood Type</th>
+                    <th>Can Donate To</th>
+                    <th>Can Receive From</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>A+</td>
+                    <td class="compatible">A+, AB+</td>
+                    <td class="compatible">A+, A-, O+, O-</td>
+                </tr>
+                <tr>
+                    <td>A-</td>
+                    <td class="compatible">A+, A-, AB+, AB-</td>
+                    <td class="compatible">A-, O-</td>
+                </tr>
+                <tr>
+                    <td>B+</td>
+                    <td class="compatible">B+, AB+</td>
+                    <td class="compatible">B+, B-, O+, O-</td>
+                </tr>
+                <tr>
+                    <td>B-</td>
+                    <td class="compatible">B+, B-, AB+, AB-</td>
+                    <td class="compatible">B-, O-</td>
+                </tr>
+                <tr>
+                    <td>AB+</td>
+                    <td class="compatible">AB+ only</td>
+                    <td class="compatible">All blood types</td>
+                </tr>
+                <tr>
+                    <td>AB-</td>
+                    <td class="compatible">AB+, AB-</td>
+                    <td class="compatible">A-, B-, AB-, O-</td>
+                </tr>
+                <tr>
+                    <td>O+</td>
+                    <td class="compatible">A+, B+, AB+, O+</td>
+                    <td class="compatible">O+, O-</td>
+                </tr>
+                <tr>
+                    <td>O-</td>
+                    <td class="compatible">All blood types</td>
+                    <td class="compatible">O- only</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info-box">
+            <h3>Important Blood Component Facts</h3>
+            <ul>
+                <li>Whole Blood: Contains all blood components and follows standard ABO and Rh compatibility rules</li>
+                <li>Red Blood Cells: Follow ABO and Rh compatibility rules strictly</li>
+                <li>Plasma: Compatibility is reversed from red blood cells (AB can receive from all, O can only receive from O)</li>
+                <li>Platelets: ABO compatibility is preferred but not mandatory in emergencies</li>
+                <li>Rh-negative patients should generally receive Rh-negative blood components</li>
+                <li>Always consult with medical professionals for specific transfusion decisions</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Updated compatibility data with component-specific rules
+        const compatibilityData = {
+            'whole-blood': {
+                'A+': {
+                    canDonateTo: ['A+', 'AB+'],
+                    canReceiveFrom: ['A+', 'A-', 'O+', 'O-']
+                },
+                'A-': {
+                    canDonateTo: ['A+', 'A-', 'AB+', 'AB-'],
+                    canReceiveFrom: ['A-', 'O-']
+                },
+                'B+': {
+                    canDonateTo: ['B+', 'AB+'],
+                    canReceiveFrom: ['B+', 'B-', 'O+', 'O-']
+                },
+                'B-': {
+                    canDonateTo: ['B+', 'B-', 'AB+', 'AB-'],
+                    canReceiveFrom: ['B-', 'O-']
+                },
+                'AB+': {
+                    canDonateTo: ['AB+'],
+                    canReceiveFrom: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+                },
+                'AB-': {
+                    canDonateTo: ['AB+', 'AB-'],
+                    canReceiveFrom: ['A-', 'B-', 'AB-', 'O-']
+                },
+                'O+': {
+                    canDonateTo: ['A+', 'B+', 'AB+', 'O+'],
+                    canReceiveFrom: ['O+', 'O-']
+                },
+                'O-': {
+                    canDonateTo: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+                    canReceiveFrom: ['O-']
+                }
+            },
+            'red-cells': {
+                'A+': {
+                    canDonateTo: ['A+', 'AB+'],
+                    canReceiveFrom: ['A+', 'A-', 'O+', 'O-']
+                },
+                'A-': {
+                    canDonateTo: ['A+', 'A-', 'AB+', 'AB-'],
+                    canReceiveFrom: ['A-', 'O-']
+                },
+                'B+': {
+                    canDonateTo: ['B+', 'AB+'],
+                    canReceiveFrom: ['B+', 'B-', 'O+', 'O-']
+                },
+                'B-': {
+                    canDonateTo: ['B+', 'B-', 'AB+', 'AB-'],
+                    canReceiveFrom: ['B-', 'O-']
+                },
+                'AB+': {
+                    canDonateTo: ['AB+'],
+                    canReceiveFrom: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+                },
+                'AB-': {
+                    canDonateTo: ['AB+', 'AB-'],
+                    canReceiveFrom: ['A-', 'B-', 'AB-', 'O-']
+                },
+                'O+': {
+                    canDonateTo: ['A+', 'B+', 'AB+', 'O+'],
+                    canReceiveFrom: ['O+', 'O-']
+                },
+                'O-': {
+                    canDonateTo: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+                    canReceiveFrom: ['O-']
+                }
+            },
+            'plasma': {
+                'A+': {
+                    canDonateTo: ['A+', 'A-', 'O+', 'O-'],
+                    canReceiveFrom: ['A+', 'AB+']
+                },
+                'A-': {
+                    canDonateTo: ['A-', 'O-'],
+                    canReceiveFrom: ['A+', 'A-', 'AB+', 'AB-']
+                },
+                'B+': {
+                    canDonateTo: ['B+', 'B-', 'O+', 'O-'],
+                    canReceiveFrom: ['B+', 'AB+']
+                },
+                'B-': {
+                    canDonateTo: ['B-', 'O-'],
+                    canReceiveFrom: ['B+', 'B-', 'AB+', 'AB-']
+                },
+                'AB+': {
+                    canDonateTo: ['All blood types'],
+                    canReceiveFrom: ['AB+ only']
+                },
+                'AB-': {
+                    canDonateTo: ['A-', 'B-', 'AB-', 'O-'],
+                    canReceiveFrom: ['AB+', 'AB-']
+                },
+                'O+': {
+                    canDonateTo: ['O+', 'O-'],
+                    canReceiveFrom: ['A+', 'B+', 'AB+', 'O+']
+                },
+                'O-': {
+                    canDonateTo: ['O- only'],
+                    canReceiveFrom: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+                }
+            },
+            'platelets': {
+                'A+': {
+                    canDonateTo: ['A+', 'AB+'],
+                    canReceiveFrom: ['A+', 'A-', 'O+', 'O-'],
+                    note: 'ABO matching preferred but not mandatory in emergencies'
+                },
+                'A-': {
+                    canDonateTo: ['A+', 'A-', 'AB+', 'AB-'],
+                    canReceiveFrom: ['A-', 'O-'],
+                    note: 'ABO matching preferred but not mandatory in emergencies'
+                },
+                'B+': {
+                    canDonateTo: ['B+', 'AB+'],
+                    canReceiveFrom: ['B+', 'B-', 'O+', 'O-'],
+                    note: 'ABO matching preferred but not mandatory in emergencies'
+                },
+                'B-': {
+                    canDonateTo: ['B+', 'B-', 'AB+', 'AB-'],
+                    canReceiveFrom: ['B-', 'O-'],
+                    note: 'ABO matching preferred but not mandatory in emergencies'
+                },
+                'AB+': {
+                    canDonateTo: ['AB+'],
+                    canReceiveFrom: ['All blood types'],
+                    note: 'ABO matching preferred but not mandatory in emergencies'
+                },
+                'AB-': {
+                    canDonateTo: ['AB+', 'AB-'],
+                    canReceiveFrom: ['A-', 'B-', 'AB-', 'O-'],
+                    note: 'ABO matching preferred but not mandatory in emergencies'
+                },
+                'O+': {
+                    canDonateTo: ['A+', 'B+', 'AB+', 'O+'],
+                    canReceiveFrom: ['O+', 'O-'],
+                    note: 'ABO matching preferred but not mandatory in emergencies'
+                },
+                'O-': {
+                    canDonateTo: ['All blood types'],
+                    canReceiveFrom: ['O-'],
+                    note: 'ABO matching preferred but not mandatory in emergencies'
+                }
+            }
+        };
+
+        // Component descriptions
+        const componentDescriptions = {
+            'whole-blood': 'Complete blood including red cells, plasma, and platelets. Follows standard ABO and Rh compatibility rules.',
+            'red-cells': 'Oxygen-carrying red blood cells. Follows strict ABO and Rh compatibility rules.',
+            'plasma': 'Liquid portion of blood containing proteins and antibodies. Has reversed compatibility rules compared to red blood cells.',
+            'platelets': 'Cell fragments that help with blood clotting. ABO matching is preferred but not mandatory in emergencies.'
+        };
+
+        // Component display names
+        const componentDisplayNames = {
+            'whole-blood': 'Whole Blood',
+            'red-cells': 'Red Blood Cells',
+            'plasma': 'Plasma',
+            'platelets': 'Platelets'
+        };
+
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileNav = document.getElementById('mobileNav');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMobileMenu.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Form handling
+        const compatibilityForm = document.getElementById('compatibilityForm');
+        const bloodComponentSelect = document.getElementById('bloodComponent');
+        const bloodTypeSelect = document.getElementById('bloodType');
+        const componentDescription = document.getElementById('componentDescription');
+        const compatibilityResults = document.getElementById('compatibilityResults');
+        const selectedComponent = document.getElementById('selectedComponent');
+        const selectedBloodType = document.getElementById('selectedBloodType');
+        const canDonateTo = document.getElementById('canDonateTo');
+        const canReceiveFrom = document.getElementById('canReceiveFrom');
+
+        // Update component description when component is selected
+        bloodComponentSelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            if (selectedValue) {
+                componentDescription.textContent = componentDescriptions[selectedValue];
+            } else {
+                componentDescription.textContent = '';
+            }
+        });
+
+        // Handle form submission
+        compatibilityForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const component = bloodComponentSelect.value;
+            const bloodType = bloodTypeSelect.value;
+            
+            if (!component || !bloodType) {
+                alert('Please select both a blood component and blood type.');
+                return;
+            }
+            
+            // Update selected info display
+            selectedComponent.textContent = componentDisplayNames[component];
+            selectedBloodType.textContent = bloodType;
+            
+            // Update compatibility results
+            const data = compatibilityData[component][bloodType];
+            
+            // Clear previous results
+            canDonateTo.innerHTML = '';
+            canReceiveFrom.innerHTML = '';
+            
+            // Add new results
+            data.canDonateTo.forEach(type => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="blood-type">${type}</span>`;
+                canDonateTo.appendChild(li);
+            });
+            
+            data.canReceiveFrom.forEach(type => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="blood-type">${type}</span>`;
+                canReceiveFrom.appendChild(li);
+            });
+
+            // Add note for platelets if available
+            if (data.note) {
+                const noteLi = document.createElement('li');
+                noteLi.className = 'compatibility-note';
+                noteLi.textContent = data.note;
+                canDonateTo.appendChild(noteLi);
+                canReceiveFrom.appendChild(noteLi.cloneNode(true));
+            }
+            
+            // Show results
+            compatibilityResults.style.display = 'block';
+            
+            // Scroll to results
+            compatibilityResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Blood - BloodLife</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        header {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .donation-container {
+            max-width: 800px;
+            margin: 120px auto 40px;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .donation-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .donation-header h1 {
+            color: #ff4d4d;
+            margin-bottom: 1rem;
+        }
+
+        .donation-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #ff4d4d;
+            outline: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .eligibility-checklist {
+            background: #fff5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .eligibility-checklist h3 {
+            color: #ff4d4d;
+            margin-bottom: 1rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .submit-button {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .submit-button:hover {
+            background-color: #ff3333;
+        }
+
+        .donation-steps {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .donation-steps h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .steps-list {
+            list-style: none;
+        }
+
+        .steps-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .steps-list li::before {
+            content: "•";
+            color: #ff4d4d;
+            font-size: 1.5rem;
+            position: absolute;
+            left: -1rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .donation-container {
+                margin: 100px 1rem 40px;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">BloodLife</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="donate.html">Donate</a>
+                <a href="blood-compatibility.html">Compatibility</a>
+                <a href="blood-search.html">Find Blood</a>
+                <a href="emergency-request.html">Emergency</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="donation-container">
+        <div class="donation-header">
+            <h1>Donate Blood Today</h1>
+            <p>Fill out the form below to schedule your blood donation</p>
+        </div>
+
+        <form class="donation-form" id="donationForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="bloodType">Blood Type</label>
+                    <select id="bloodType" name="bloodType" required>
+                        <option value="">Select Blood Type</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="donationDate">Preferred Donation Date</label>
+                    <input type="date" id="donationDate" name="donationDate" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="facility">Preferred Donation Center</label>
+                <select id="facility" name="facility" required>
+                    <option value="">Select Donation Center</option>
+                    <option value="city-general">City General Hospital</option>
+                    <option value="community-health">Community Health Center</option>
+                    <option value="metropolitan">Metropolitan Medical Center</option>
+                </select>
+            </div>
+
+            <div class="eligibility-checklist">
+                <h3>Eligibility Checklist</h3>
+                <div class="checklist-item">
+                    <input type="checkbox" id="age" name="age" required>
+                    <label for="age">I am at least 17 years old</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="weight" name="weight" required>
+                    <label for="weight">I weigh at least 110 pounds</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="health" name="health" required>
+                    <label for="health">I am in good health today</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="lastDonation" name="lastDonation" required>
+                    <label for="lastDonation">It has been at least 56 days since my last donation</label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">Schedule Donation</button>
+        </form>
+
+        <div class="donation-steps">
+            <h3>What to Expect</h3>
+            <ul class="steps-list">
+                <li>Registration: Bring a valid photo ID and complete a brief health questionnaire</li>
+                <li>Mini-physical: Quick check of temperature, blood pressure, and hemoglobin level</li>
+                <li>Donation: The actual donation takes about 8-10 minutes</li>
+                <li>Refreshments: Rest and enjoy snacks and drinks for 10-15 minutes after donation</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('donationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would typically send the form data to your server
+            alert('Thank you for your interest in donating blood! We will contact you shortly to confirm your appointment.');
+            this.reset();
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('donationDate').min = today;
+    </script>
+</body>
+</html> 

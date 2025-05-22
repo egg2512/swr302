@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Blood Request - BloodLife</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fff5f5;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #ff0000;
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffcccc;
+        }
+
+        /* Emergency Container */
+        .emergency-container {
+            max-width: 1200px;
+            margin: 100px auto 40px;
+            padding: 2rem;
+        }
+
+        /* Emergency Header */
+        .emergency-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: pulse 2s infinite;
+        }
+
+        .emergency-header h1 {
+            color: #ff0000;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .emergency-header p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Emergency Alert */
+        .emergency-alert {
+            background: linear-gradient(135deg, #ff0000 0%, #ff4d4d 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .emergency-alert p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .emergency-alert .hotline {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .emergency-alert .hotline:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Request Form */
+        .request-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #ff0000;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Urgency Options */
+        .urgency-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .urgency-option {
+            position: relative;
+            padding: 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 3px solid transparent;
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transform-origin: center;
+            overflow: hidden;
+            background: #ff0000;
+            color: white;
+        }
+
+        .urgency-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .urgency-option:hover::before {
+            transform: translateX(0);
+        }
+
+        .urgency-option:hover {
+            background: #ff1a1a;
+            border-color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .urgency-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .urgency-option .urgency-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            color: white;
+        }
+
+        .urgency-option .urgency-content::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: white;
+            transition: width 0.2s ease;
+            border-radius: 2px;
+        }
+
+        .urgency-option .urgency-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+            color: white;
+        }
+
+        .urgency-option .urgency-time {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            transition: all 0.2s ease;
+            color: white;
+        }
+
+        /* Selected State */
+        .urgency-option input[type="radio"]:checked + .urgency-content {
+            font-weight: 700;
+            color: white;
+        }
+
+        .urgency-option input[type="radio"]:checked + .urgency-content::after {
+            width: 80%;
+            background: white;
+        }
+
+        .urgency-option input[type="radio"]:checked ~ .urgency-content {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .urgency-option input[type="radio"]:checked ~ .urgency-content .urgency-title {
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .urgency-option input[type="radio"]:checked ~ .urgency-content .urgency-time {
+            opacity: 1;
+            color: white;
+        }
+
+        /* Hover State */
+        .urgency-option:hover .urgency-content,
+        .urgency-option:hover .urgency-title,
+        .urgency-option:hover .urgency-time {
+            color: white;
+        }
+
+        /* Active/Pressed State */
+        .urgency-option:active {
+            transform: scale(0.98) !important;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+            border-color: transparent !important;
+        }
+
+        /* Selected Hover State */
+        .urgency-option input[type="radio"]:checked + .urgency-content + .urgency-option:hover {
+            border-color: white;
+        }
+
+        /* Submit Button */
+        .submit-button {
+            background: #ff0000;
+            color: white;
+            padding: 1.2rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-button:hover {
+            background: #ff1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        /* Status Tracker */
+        .status-tracker {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.1);
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .status-tracker h3 {
+            color: #ff0000;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .status-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .status-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .status-step.active {
+            opacity: 1;
+        }
+
+        .step-number {
+            background: #ff0000;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-content h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            color: #666;
+        }
+
+        .request-info {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+
+        .request-info p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            background: #fff5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .contact-info h4 {
+            color: #ff0000;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .emergency-container {
+                padding: 1rem;
+                margin-top: 80px;
+            }
+
+            .emergency-header h1 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .urgency-options {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">BloodLife</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="donate.html">Donate</a>
+                <a href="blood-compatibility.html">Compatibility</a>
+                <a href="blood-search.html">Find Blood</a>
+                <a href="emergency-request.html">Emergency</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="emergency-container">
+        <div class="emergency-header">
+            <h1>Emergency Blood Request</h1>
+            <p>Need blood urgently? Our emergency response team is available 24/7 to help you find the blood you need.</p>
+        </div>
+
+        <div class="emergency-alert">
+            <p>⚠️ This form is for urgent blood requests only. For non-emergency blood needs, please use our regular blood search feature.</p>
+            <p>Need immediate assistance? Call our emergency hotline:</p>
+            <a href="tel:1800-BLOOD" class="hotline">1800-BLOOD (24/7)</a>
+        </div>
+
+        <form class="request-form" id="emergencyForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="patientName">Patient Name</label>
+                    <input type="text" id="patientName" name="patientName" required placeholder="Enter patient's full name">
+                </div>
+                <div class="form-group">
+                    <label for="contactName">Contact Person Name</label>
+                    <input type="text" id="contactName" name="contactName" required placeholder="Enter contact person's name">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="contactPhone">Contact Phone</label>
+                    <input type="tel" id="contactPhone" name="contactPhone" required placeholder="(555) 555-5555">
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail">Contact Email</label>
+                    <input type="email" id="contactEmail" name="contactEmail" required placeholder="Enter email address">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="bloodType">Required Blood Type</label>
+                    <select id="bloodType" name="bloodType" required>
+                        <option value="">Select Blood Type</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="units">Units Needed</label>
+                    <input type="number" id="units" name="units" min="1" max="10" required placeholder="Number of units">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="hospital">Hospital/Facility Name</label>
+                    <input type="text" id="hospital" name="hospital" required placeholder="Enter hospital name">
+                </div>
+                <div class="form-group">
+                    <label for="hospitalAddress">Hospital Address</label>
+                    <input type="text" id="hospitalAddress" name="hospitalAddress" required placeholder="Enter hospital address">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Urgency Level</label>
+                <div class="urgency-options">
+                    <label class="urgency-option">
+                        <input type="radio" name="urgency" value="emergency" required>
+                        <div class="urgency-content">
+                            <div class="urgency-title">Emergency</div>
+                            <div class="urgency-time">Required within 1 hour</div>
+                        </div>
+                    </label>
+                    <label class="urgency-option">
+                        <input type="radio" name="urgency" value="urgent" required>
+                        <div class="urgency-content">
+                            <div class="urgency-title">Urgent</div>
+                            <div class="urgency-time">Required within 4 hours</div>
+                        </div>
+                    </label>
+                    <label class="urgency-option">
+                        <input type="radio" name="urgency" value="critical" required>
+                        <div class="urgency-content">
+                            <div class="urgency-title">Critical</div>
+                            <div class="urgency-time">Required within 24 hours</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="reason">Reason for Blood Need</label>
+                <textarea id="reason" name="reason" required placeholder="Please provide details about why blood is needed"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="additionalInfo">Additional Information</label>
+                <textarea id="additionalInfo" name="additionalInfo" placeholder="Any other relevant information that might help"></textarea>
+            </div>
+
+            <button type="submit" class="submit-button">Submit Emergency Request</button>
+        </form>
+
+        <div class="status-tracker" id="statusTracker">
+            <h3>Request Status</h3>
+            <div class="status-timeline">
+                <div class="status-step active" id="step1">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Request Received</h4>
+                        <p>Your emergency request has been received and is being processed immediately</p>
+                    </div>
+                </div>
+                <div class="status-step" id="step2">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Notifying Donors</h4>
+                        <p>Our system is contacting potential donors in your area</p>
+                    </div>
+                </div>
+                <div class="status-step" id="step3">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Matching Donors</h4>
+                        <p>Finding compatible blood donors based on your requirements</p>
+                    </div>
+                </div>
+                <div class="status-step" id="step4">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Coordination</h4>
+                        <p>Arranging immediate blood collection and delivery to your location</p>
+                    </div>
+                </div>
+                <div class="status-step" id="step5">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Blood Collection</h4>
+                        <p>Blood is being collected and prepared for immediate delivery</p>
+                    </div>
+                </div>
+            </div>
+            <div class="request-info">
+                <p>Request ID: <span id="requestId"></span></p>
+                <p>Status updates will be sent to your phone and email</p>
+            </div>
+            <div class="contact-info">
+                <h4>Need Immediate Assistance?</h4>
+                <p>If you need to speak with someone right away, please call our emergency hotline:</p>
+                <p><a href="tel:1800-BLOOD" class="hotline">1800-BLOOD (24/7)</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('emergencyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Generate a random request ID
+            const requestId = 'REQ-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            document.getElementById('requestId').textContent = requestId;
+            
+            // Show the status tracker
+            document.getElementById('statusTracker').style.display = 'block';
+            
+            // Hide the form
+            this.style.display = 'none';
+            
+            // Simulate status updates
+            let currentStep = 1;
+            const updateInterval = setInterval(() => {
+                if (currentStep <= 5) {
+                    document.getElementById(`step${currentStep}`).classList.add('active');
+                    currentStep++;
+                } else {
+                    clearInterval(updateInterval);
+                }
+            }, 30000); // Update every 30 seconds
+        });
+
+        // Format phone number as user types
+        document.getElementById('contactPhone').addEventListener('input', function(e) {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
+
+        // Update urgency option selection effect
+        document.querySelectorAll('.urgency-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Add a brief animation effect
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+
+                // Remove any existing selection effects
+                document.querySelectorAll('.urgency-option').forEach(opt => {
+                    if (opt !== this) {
+                        opt.style.transform = '';
+                        opt.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+                        opt.style.borderColor = 'transparent';
+                    }
+                });
+            });
+
+            // Add hover effect for selected button
+            option.addEventListener('mouseenter', function() {
+                if (this.querySelector('input[type="radio"]:checked')) {
+                    this.style.borderColor = 'white';
+                }
+            });
+
+            option.addEventListener('mouseleave', function() {
+                if (this.querySelector('input[type="radio"]:checked')) {
+                    this.style.borderColor = 'transparent';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

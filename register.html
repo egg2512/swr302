@@ -160,8 +160,11 @@
             <div class="logo">BloodLife</div>
             <div class="nav-links">
                 <a href="index.html">Home</a>
-                <a href="index.html#about">About</a>
-                <a href="index.html#donate">Donate</a>
+                <a href="about.html">About</a>
+                <a href="donate.html">Donate</a>
+                <a href="blood-compatibility.html">Compatibility</a>
+                <a href="blood-search.html">Find Blood</a>
+                <a href="emergency-request.html">Emergency</a>
                 <a href="index.html#contact">Contact</a>
             </div>
         </nav>
@@ -224,5 +227,31 @@
             </div>
         </form>
     </div>
+
+    <script>
+        document.querySelector('.register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // Validate password strength
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long!');
+                return;
+            }
+            
+            // Here you would typically send the form data to your server
+            alert('Registration successful! Please check your email to verify your account.');
+            this.reset();
+        });
+    </script>
 </body>
 </html> 

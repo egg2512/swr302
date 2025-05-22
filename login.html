@@ -145,8 +145,11 @@
             <div class="logo">BloodLife</div>
             <div class="nav-links">
                 <a href="index.html">Home</a>
-                <a href="index.html#about">About</a>
-                <a href="index.html#donate">Donate</a>
+                <a href="about.html">About</a>
+                <a href="donate.html">Donate</a>
+                <a href="blood-compatibility.html">Compatibility</a>
+                <a href="blood-search.html">Find Blood</a>
+                <a href="emergency-request.html">Emergency</a>
                 <a href="index.html#contact">Contact</a>
             </div>
         </nav>
@@ -170,5 +173,26 @@
             </div>
         </form>
     </div>
+
+    <script>
+        document.querySelector('.login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Basic validation
+            if (!email || !password) {
+                alert('Please fill in all fields!');
+                return;
+            }
+            
+            // Here you would typically send the form data to your server
+            alert('Login successful! Redirecting to dashboard...');
+            // In a real application, you would redirect to the dashboard after successful login
+            // window.location.href = 'dashboard.html';
+        });
+    </script>
 </body>
 </html> 
