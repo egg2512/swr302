@@ -879,6 +879,8 @@
             }
         }
     </style>
+    <!-- Add Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -897,9 +899,10 @@
                     </div>
                 </div>
                 <a href="index.html#contact">Liên Hệ</a>
-                <div class="auth-buttons">
-                    <a href="login.html" class="auth-button login-btn">Login</a>
-                    <a href="register.html" class="auth-button register-btn">Register</a>
+                <!-- Auth buttons (shown when not logged in) -->
+                <div class="auth-buttons" id="authButtons">
+                    <a href="login.html" class="auth-button login-btn">Đăng Nhập</a>
+                    <a href="register.html" class="auth-button register-btn">Đăng Ký</a>
                 </div>
             </div>
         </nav>
@@ -910,15 +913,21 @@
         <button class="close-button" id="closeMobileMenu">×</button>
         <div class="mobile-nav-links">
             <a href="index.html">Trang Chủ</a>
-            <a href="donate.html">Hiến Máu</a>
-            <a href="blood-compatibility.html">Tương Thích</a>
-            <a href="blood-search.html">Tìm Máu</a>
-            <a href="emergency-request.html">Khẩn Cấp</a>
+            <div class="dropdown">
+                <button class="dropdown-btn">Dịch Vụ</button>
+                <div class="dropdown-content">
+                    <a href="donate.html">Hiến Máu</a>
+                    <a href="blood-compatibility.html">Tương Thích</a>
+                    <a href="blood-search.html">Tìm Máu</a>
+                    <a href="emergency-request.html">Khẩn Cấp</a>
+                </div>
+            </div>
             <a href="index.html#contact">Liên Hệ</a>
-        </div>
-        <div class="mobile-auth-buttons">
-            <a href="login.html" class="auth-button login-btn">Login</a>
-            <a href="register.html" class="auth-button register-btn">Register</a>
+            <!-- Auth buttons for mobile (shown when not logged in) -->
+            <div class="mobile-auth-buttons" id="mobileAuthButtons">
+                <a href="login.html" class="auth-button login-btn">Đăng Nhập</a>
+                <a href="register.html" class="auth-button register-btn">Đăng Ký</a>
+            </div>
         </div>
     </div>
 
@@ -1343,5 +1352,33 @@
             </div>
         </div>
     </footer>
+    <!-- Add scripts before closing body tag -->
+    <script src="js/auth.js"></script>
+    <script src="js/navbar.js"></script>
+    <script>
+        // Check authentication status on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof auth !== 'undefined') {
+                const currentUser = auth.getCurrentUser();
+                const authButtons = document.getElementById('authButtons');
+                const userProfile = document.getElementById('userProfile');
+
+                if (currentUser) {
+                    // User is logged in
+                    if (authButtons) authButtons.style.display = 'none';
+                    if (userProfile) {
+                        userProfile.style.display = 'block';
+                        if (typeof updateUserProfile === 'function') {
+                            updateUserProfile();
+                        }
+                    }
+                } else {
+                    // User is not logged in
+                    if (authButtons) authButtons.style.display = 'flex';
+                    if (userProfile) userProfile.style.display = 'none';
+                }
+            }
+        });
+    </script>
 </body>
 </html> 

@@ -1366,6 +1366,31 @@
             // In a real application, this would open a contact form or initiate a call
             alert(`${type.charAt(0).toUpperCase() + type.slice(1)} contact functionality would be implemented here. ID: ${id}`);
         }
+
+        // Check authentication status on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const currentUser = auth.getCurrentUser();
+            if (!currentUser) {
+                // Store current URL for redirect after login
+                localStorage.setItem('redirectAfterLogin', window.location.href);
+                // Redirect to login page
+                window.location.href = 'login.html';
+            }
+
+            // Update navbar based on auth status
+            if (typeof updateUserProfile === 'function') {
+                updateUserProfile();
+            }
+
+            // Hide auth buttons if logged in
+            const authButtons = document.getElementById('authButtons');
+            const mobileAuthButtons = document.getElementById('mobileAuthButtons');
+            if (currentUser) {
+                if (authButtons) authButtons.style.display = 'none';
+                if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html> 

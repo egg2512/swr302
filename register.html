@@ -459,29 +459,40 @@
         </form>
     </div>
 
+    <!-- Add auth.js script before other scripts -->
+    <script src="js/auth.js"></script>
     <script>
-        document.querySelector('.register-form').addEventListener('submit', function(e) {
+        document.querySelector('.register-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Get form data
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            // Validate passwords match
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
+            try {
+                // Get form data
+                const formData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('password').value,
+                    confirmPassword: document.getElementById('confirmPassword').value,
+                    bloodType: document.getElementById('bloodType').value,
+                    phone: document.getElementById('phone').value,
+                    address: document.getElementById('address').value
+                };
+                
+                // Validate passwords match
+                if (formData.password !== formData.confirmPassword) {
+                    throw new Error('Passwords do not match!');
+                }
+
+                // Register user
+                const result = await auth.register(formData);
+                
+                if (result.success) {
+                    alert('Registration successful! Please login to continue.');
+                    window.location.href = 'login.html';
+                }
+            } catch (error) {
+                alert(error.message || 'Registration failed. Please try again.');
             }
-            
-            // Validate password strength
-            if (password.length < 8) {
-                alert('Password must be at least 8 characters long!');
-                return;
-            }
-            
-            // Here you would typically send the form data to your server
-            alert('Registration successful! Please check your email to verify your account.');
-            this.reset();
         });
 
         // Add mobile menu functionality

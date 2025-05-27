@@ -877,6 +877,38 @@
         <a href="index.html#contact">Liên Hệ</a>
     </div>
 
+    <footer>
+        <!-- Add authentication scripts -->
+        <script src="js/auth.js"></script>
+        <script src="js/navbar.js"></script>
+        <script>
+            // Check authentication status on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                // Check if user is logged in
+                const currentUser = auth.getCurrentUser();
+                if (!currentUser) {
+                    // Store current URL for redirect after login
+                    localStorage.setItem('redirectAfterLogin', window.location.href);
+                    // Redirect to login page
+                    window.location.href = 'login.html';
+                }
+
+                // Update navbar based on auth status
+                if (typeof updateUserProfile === 'function') {
+                    updateUserProfile();
+                }
+
+                // Hide auth buttons if logged in
+                const authButtons = document.getElementById('authButtons');
+                const mobileAuthButtons = document.getElementById('mobileAuthButtons');
+                if (currentUser) {
+                    if (authButtons) authButtons.style.display = 'none';
+                    if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
+                }
+            });
+        </script>
+    </footer>
+
     <script>
         document.getElementById('emergencyForm').addEventListener('submit', function(e) {
             e.preventDefault();
