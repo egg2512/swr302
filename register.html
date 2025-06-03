@@ -372,10 +372,10 @@
                 <div class="dropdown">
                     <button class="dropdown-btn">Dịch Vụ</button>
                     <div class="dropdown-content">
-                        <a href="donate.html">Hiến Máu</a>
-                        <a href="blood-compatibility.html">Tương Thích</a>
-                        <a href="blood-search.html">Tìm Máu</a>
-                        <a href="emergency-request.html">Khẩn Cấp</a>
+                <a href="donate.html">Hiến Máu</a>
+                <a href="blood-compatibility.html">Tương Thích</a>
+                <a href="blood-search.html">Tìm Máu</a>
+                <a href="emergency-request.html">Khẩn Cấp</a>
                     </div>
                 </div>
                 <a href="index.html#contact">Liên Hệ</a>
@@ -466,7 +466,7 @@
             e.preventDefault();
             
             try {
-                // Get form data
+            // Get form data
                 const formData = {
                     firstName: document.getElementById('firstName').value,
                     lastName: document.getElementById('lastName').value,
@@ -477,12 +477,12 @@
                     phone: document.getElementById('phone').value,
                     address: document.getElementById('address').value
                 };
-                
-                // Validate passwords match
+            
+            // Validate passwords match
                 if (formData.password !== formData.confirmPassword) {
                     throw new Error('Passwords do not match!');
-                }
-
+            }
+            
                 // Register user
                 const result = await auth.register(formData);
                 

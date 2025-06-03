@@ -356,8 +356,8 @@
             color: #ff4d4d;
             text-align: center;
             margin-bottom: 1rem;
-            display: none;
-        }
+                display: none;
+            }
 
         /* User Profile Styles */
         .user-profile {
@@ -398,7 +398,7 @@
             margin-top: 0.5rem;
             display: none;
             z-index: 1000;
-        }
+            }
 
         .user-dropdown.active {
             display: block;
@@ -541,10 +541,10 @@
                 <div class="dropdown">
                     <button class="dropdown-btn">Dịch Vụ</button>
                     <div class="dropdown-content">
-                        <a href="donate.html">Hiến Máu</a>
-                        <a href="blood-compatibility.html">Tương Thích</a>
-                        <a href="blood-search.html">Tìm Máu</a>
-                        <a href="emergency-request.html">Khẩn Cấp</a>
+                <a href="donate.html">Hiến Máu</a>
+                <a href="blood-compatibility.html">Tương Thích</a>
+                <a href="blood-search.html">Tìm Máu</a>
+                <a href="emergency-request.html">Khẩn Cấp</a>
                     </div>
                 </div>
                 <a href="index.html#contact">Liên Hệ</a>
@@ -655,11 +655,11 @@
             errorMessage.style.display = 'none';
             
             try {
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-
-                // Basic validation
-                if (!email || !password) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Basic validation
+            if (!email || !password) {
                     throw new Error('Vui lòng nhập đầy đủ email và mật khẩu');
                 }
 
